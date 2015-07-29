@@ -1,0 +1,22 @@
+{
+  "name": "realtime-echo-bot",
+  "version": "1.0.0",
+  "description": "LeanCloud Realtime Echo Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leancloud/realtime-echo-bot.git"
+  },
+  "author": "yli@leancloud.rocks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leancloud/realtime-echo-bot/issues"
+  },
+  "dependencies": {
+    "leancloud-realtime": "^2.2.0",
+    "ws": "^0.7.2"
+  }
+}
