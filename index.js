@@ -2,10 +2,7 @@
 
 var util = require('util');
 var realtime = require('leancloud-realtime');
-
-realtime.config({
-  WebSocket: require('ws')
-});
+var debug = require('debug')('index');
 
 var appId = process.env.APP_ID;
 var clientId = process.env.ECHO_BOT_ID || 'LeanEchoBot';
@@ -25,31 +22,31 @@ rt0.on('open', function() {
         appId: appId,
         clientId: clientId
       }, function() {
-        console.log('Echo bot online.');
+        debug('Echo bot online.');
       });
 
       rt.on('join', function(data) {
         if (data.op !== 'joined') return;
-        console.log('inventied to conv ' + data.cid + ' by ' + data.initBy);
+        debug('inventied to conv ' + data.cid + ' by ' + data.initBy);
         rt.conv(data.cid, function(conv) {
-          // console.log(require('util').inspect(conv));
+          // debug(require('util').inspect(conv));
           conv.count(function(count) {
-            console.log('conversition member count: ' + count);
+            debug('conversition member count: ' + count);
             if (count !== 2) return;
             conv.send('Hello, ' + data.initBy + '!', function(data) {
-              // console.log(require('util').inspect(data));
+              // debug(require('util').inspect(data));
             });
           });
         });
       });
 
       rt.on('message', function(data) {
-        // console.log(util.inspect(data));
+        // debug(util.inspect(data));
         if (data.fromPeerId === clientId) return;
-        console.log('message recieved: \"' + data.msg + '\", from ' + data.fromPeerId + ' in ' + data.cid);
+        debug('message recieved: \"' + data.msg + '\", from ' + data.fromPeerId + ' in ' + data.cid);
         rt.conv(data.cid, function(conv) {
           conv.count(function(count) {
-            console.log('conversition member count: ' + count);
+            debug('conversition member count: ' + count);
             if (count !== 2) return;
             conv.send(data.msg);
           });
